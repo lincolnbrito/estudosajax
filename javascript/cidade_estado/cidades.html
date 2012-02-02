@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title>Exemplo 3 - Escolha a Cidade</title>
+	<script type="text/javascript" src="../ajaxInit.js"></script>
+	<script type="text/javascript">
+		
+		function selecionaCidade(estado){
+			ajax = ajaxInit();
+			if( ajax ){
+				ajax.onreadystatechange = escreveCidades;
+				url = "cidades.innerHTML.php?estado="+estado;
+				ajax.open("GET",url,true);
+				ajax.send(null);
+			}
+		}
+		
+		function escreveCidades(){
+			if( ajax.readyState == 4 ){
+				if( ajax.status == 200 ){
+					alert("chegou");
+					document.getElementById("cidade").innerHTML = ajax.responseText;
+				}
+			}
+		}	
+		
+		
+		function selecionaCidadeJson( cidade ){
+			ajax = ajaxInit();
+			if( ajax ){
+				ajax.onreadystatechange = escreveCidadeJson;
+				url = "cidadeJson.php?estado="+estado;
+				ajax.open("GET",url,true);
+				ajax.send(null);
+			}			
+		}
+		
+		
+		function escreveCidadeJson(){
+			if( ajax.readyState == 4 ){
+				if( ajax.status == 200 ){
+					var x = 0;
+					var json = eval("("+ajax.responseText+")");
+					
+					limparDestino("cidade2");
+					
+					for( x=0; x<json.cidades.length; x++ ){
+						option = document.createElement("option");
+						option.setAttribute("value", json.cidades[x].cdg);
+						option.appendChild( document.createTextNode( json.cidades[x].nm ));
+						document.getElementById( document.createTextNode( json.cidades[x].nm ) );
+						document.getElementById("cidade2").appendChild( option );
+						
+					}
+				}			
+			}
+		
+		}
+		
+		
+		function limparDestino( destino ){
+			obj = document.getElementById( destino );
+			while( obj.firstChild )
+				obj.removeChild( obj.firstChild );
+		}
+	</script>
+</head>
+<body>
+	<form name="selecioneCidade">
+		<label for="estado" accessKey="e"><u>E</u>stado:</label>
+		<select name="estado" id="estado" 
+					onChange="if(this.options[this.selectedIndex].value){selecionaCidade(this.options[this.selectedIndex].value)}">
+			<option value="-">-------</option>
+			<option value="pr">PR</option>
+			<option value="sp">SP</option>	
+		</select><br />
+		
+		<label for="cidade" accessKey="c"><u>C</u>idade:</label>
+		<select name="cidade" id="cidade"></select>
+
+		<hr />
+		
+		<label for="estado" accessKey="e"><u>E</u>stado:</label>
+		<select name="estado" id="estado" onChange="">
+			<option value="-">--------</option>
+			<option value="pr">PR</option>
+			<option value="sp">SP</option>
+		</select>
+		
+		<label for="cidade" accessKey="c"><u>C</u>idade:</label>
+		<select name="cidade" id="cidade2">
+			<input type="button" onClick="alert(eval('fred=999; vilma=777; document.write(fred + vilma)'))" />
+		</select>
+	</form>
+
+
+
+	
+</body>
+</html>
