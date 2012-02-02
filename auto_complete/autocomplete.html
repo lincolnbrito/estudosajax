@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title>Auto Completar</title>
+	<link rel="stylesheet" type="text/css" href="estilo.css" />
+	<script type="text/javascript" src="../ajaxInit.js"></script>
+	<script type="text/javascript">
+		
+		/** Efetua a requisição AJAX */
+		function sugerir( s ){
+			ajax = ajaxInit();
+			document.getElementById( "resultado" ).innerHTML = "Calculando...";
+			if( ajax ){
+				ajax.onreadystatechange = resultado;
+				url = 'autoCompletar.php?s='+s;
+				ajax.open('GET', url , true);
+				ajax.send( null );
+			}
+		}
+		
+		/** Função para manipular o resultado da requisição */
+		function resultado(){
+			if(ajax.readyState == 4){
+				if(ajax.status == 200){
+					json = eval("("+ajax.responseText+")");
+					var x = 0;
+					limparDestino("resultado");
+					document.getElementById("resultado").style.visibility = "visible";
+					for( x=0; x<json.pal.length; x++ ){
+						P = document.createElement("p");
+						P.appendChild( document.createTextNode(json.pal[x]) );
+						P.setAttribute("onClick", 
+							"document.getElementById('pal').value='"+json.pal[x]+"'; document.getElementById('resultado').style.visibility = 'hidden'");
+						document.getElementById("resultado").appendChild(P);
+					}
+				}
+			}
+		
+		}		
+		
+		/**Limpa os dados do select*/
+		function limparDestino( destino ){
+			obj = document.getElementById( destino );
+			while( obj.firstChild )
+				obj.removeChild( obj.firstChild );
+		}
+	</script>
+</head>
+<body>
+	<form name="auto">
+		<label for="pal" accesskey="pal">Palavra</label>
+		<input type="text" id="pal" onkeyup="sugerir(document.getElementById('pal').value);" />
+		<div id="resultado" style="visibility:hidden"></div>	
+	</form>
+</body>
+</html>

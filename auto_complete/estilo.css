@@ -1,0 +1,25 @@
+body{
+	font-family: arial;
+}
+#resultado{
+	background-color: #e5e5e5;
+	border			: 1px solid #000;
+	width			: 150px;
+	padding			: 0;
+	margin			: 0;
+	position		: relative;
+	margin-left		: 45px;
+	margin-top		: 0;	
+}
+
+p{
+	line-height		: 15px;
+	margin			: 0;
+	font			: 18px "Arial", sans-serif;
+	padding			: 5px;
+}
+
+p:hover{
+	background-color: #cdcdcd;
+	cursor			: pointer;
+}
