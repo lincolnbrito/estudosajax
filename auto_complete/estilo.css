@@ -1,6 +1,3 @@
-body{
-	font-family: arial;
-}
 #resultado{
 	background-color: #e5e5e5;
 	border			: 1px solid #000;
@@ -12,14 +9,14 @@ body{
 	margin-top		: 0;	
 }
 
-p{
+#resultado p{
 	line-height		: 15px;
 	margin			: 0;
-	font			: 18px "Arial", sans-serif;
+	font			: 18px;
 	padding			: 5px;
 }
 
-p:hover{
+#resultado p:hover{
 	background-color: #cdcdcd;
 	cursor			: pointer;
 }
