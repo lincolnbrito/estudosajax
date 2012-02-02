@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title>Carregando arquivo via AJAX</title>
+	<style type="text/css">
+		body{ font-family: Arial, Verdana; }
+		#texto{ border: 1px solid #ccc; padding: 10px; margin: 10px; width: 400px; }
+	</style>
+	<script type="text/javascript" src="../ajaxInit.js"></script>
+	<script type="text/javascript">
+		
+		/**
+		* Carrega um arquivo de texto
+		*/
+		function carregar( arquivo ){
+			
+			ajax = ajaxInit();
+			
+			document.getElementById("texto").innerHTML = "Carregando...";
+			
+			if( ajax ){
+				
+				ajax.open("GET", arquivo, true);
+				
+				//onreadystatechange - define qual função será chamada para fazer a manipulação
+				//dos dados assim que houver um retorno. Neste caso uma função anônima.
+				ajax.onreadystatechange = function(){
+					/**
+					*	Código do estado da requisição
+					*	0 - unitialized, 1 - a carregar, 2 - carregado,	3 - interativo, 4 - completo
+					*/
+					if(ajax.readyState == 4){
+						if( ajax.status == 200 ){ //200 encontrado, 404 não encontrado, 304 não modificado
+							document.getElementById("texto").innerHTML = ajax.responseText;
+						}
+						if( ajax.status == 404 ){
+							document.getElementById("texto").innerHTML = "Erro 404 - Arquivo não encontrado";
+						}
+					}
+				}
+			}
+			
+			/**
+			*	Método que ativa a conexão e faz a requisição de 
+			*	informações ao documento aberto pelo método OPEN
+			*/
+			ajax.send(null); 
+		}
+	</script>
+</head>
+<body>
+	<h2>Exemplo AJAX - Solicitando um arquivo de texto</h2>
+	<p>Carregando um arquivo de texto</p>
+	<input type="button" value="Carregar arquivo texto.txt" onclick="javascript:carregar('texto.txt');" />
+	<input type="button" value="Carregar arquivo que não existe" onclick="javascript:carregar('arquivo');" />
+	<div id="texto">Resultado da requisição</div>
+</body>
+</html>
