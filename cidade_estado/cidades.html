@@ -26,18 +26,18 @@
 			}
 		}	
 		
-		
-		function selecionaCidadeJson( cidade ){
+		//Faz uma requisição AJAX informando o estado
+		function selecionaCidadeJson( estado ){
 			ajax = ajaxInit();
 			if( ajax ){
 				ajax.onreadystatechange = escreveCidadeJson;
-				url = "cidadeJson.php?estado="+estado;
+				url = "cidades.JSON.php?estado="+estado;
 				ajax.open("GET",url,true);
 				ajax.send(null);
 			}			
 		}
 		
-		
+		//Escreve os dados retornados (em formato JSON) no elemento
 		function escreveCidadeJson(){
 			if( ajax.readyState == 4 ){
 				if( ajax.status == 200 ){
@@ -49,8 +49,7 @@
 					for( x=0; x<json.cidades.length; x++ ){
 						option = document.createElement("option");
 						option.setAttribute("value", json.cidades[x].cdg);
-						option.appendChild( document.createTextNode( json.cidades[x].nm ));
-						document.getElementById( document.createTextNode( json.cidades[x].nm ) );
+						option.appendChild( document.createTextNode( json.cidades[x].nm ));						
 						document.getElementById("cidade2").appendChild( option );						
 					}
 				}			
@@ -58,7 +57,7 @@
 		
 		}
 		
-		
+		//Limpa os dados do select
 		function limparDestino( destino ){
 			obj = document.getElementById( destino );
 			while( obj.firstChild )
@@ -86,7 +85,8 @@
 		
 		<h3>Retorno de dados usando JSON</h3>
 		<label for="estado" accessKey="e"><u>E</u>stado:</label>
-		<select name="estado" id="estado" onChange="">
+		<select name="estado" id="estado" 
+					onChange="if(this.options[this.selectedIndex].value){selecionaCidadeJson(this.options[this.selectedIndex].value)}">>
 			<option value="-">--------</option>
 			<option value="pr">PR</option>
 			<option value="sp">SP</option>
