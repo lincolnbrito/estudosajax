@@ -21,7 +21,6 @@
 		function escreveCidades(){
 			if( ajax.readyState == 4 ){
 				if( ajax.status == 200 ){
-					alert("chegou");
 					document.getElementById("cidade").innerHTML = ajax.responseText;
 				}
 			}
@@ -52,8 +51,7 @@
 						option.setAttribute("value", json.cidades[x].cdg);
 						option.appendChild( document.createTextNode( json.cidades[x].nm ));
 						document.getElementById( document.createTextNode( json.cidades[x].nm ) );
-						document.getElementById("cidade2").appendChild( option );
-						
+						document.getElementById("cidade2").appendChild( option );						
 					}
 				}			
 			}
@@ -70,6 +68,8 @@
 </head>
 <body>
 	<form name="selecioneCidade">
+		<h1>AJAX usando select</h1>
+		<h3>Retorno de dados usando a propriedade innerHTML</h3>
 		<label for="estado" accessKey="e"><u>E</u>stado:</label>
 		<select name="estado" id="estado" 
 					onChange="if(this.options[this.selectedIndex].value){selecionaCidade(this.options[this.selectedIndex].value)}">
@@ -81,8 +81,10 @@
 		<label for="cidade" accessKey="c"><u>C</u>idade:</label>
 		<select name="cidade" id="cidade"></select>
 
-		<hr />
+		<br />
+		<br />
 		
+		<h3>Retorno de dados usando JSON</h3>
 		<label for="estado" accessKey="e"><u>E</u>stado:</label>
 		<select name="estado" id="estado" onChange="">
 			<option value="-">--------</option>
