@@ -6,6 +6,7 @@
 	<script type="text/javascript" src="../ajaxInit.js"></script>
 	<script type="text/javascript">
 		
+		//Faz uma requisição AJAX informando o estado
 		function selecionaCidade(estado){
 			ajax = ajaxInit();
 			if( ajax ){
@@ -16,27 +17,27 @@
 			}
 		}
 		
+		//Escreve os dados retornados da requisição no elemento 
 		function escreveCidades(){
 			if( ajax.readyState == 4 ){
 				if( ajax.status == 200 ){
-					alert("chegou");
 					document.getElementById("cidade").innerHTML = ajax.responseText;
 				}
 			}
 		}	
 		
-		
-		function selecionaCidadeJson( cidade ){
+		//Faz uma requisição AJAX informando o estado
+		function selecionaCidadeJson( estado ){
 			ajax = ajaxInit();
 			if( ajax ){
 				ajax.onreadystatechange = escreveCidadeJson;
-				url = "cidadeJson.php?estado="+estado;
+				url = "cidades.JSON.php?estado="+estado;
 				ajax.open("GET",url,true);
 				ajax.send(null);
 			}			
 		}
 		
-		
+		//Escreve os dados retornados (em formato JSON) no elemento
 		function escreveCidadeJson(){
 			if( ajax.readyState == 4 ){
 				if( ajax.status == 200 ){
@@ -48,17 +49,15 @@
 					for( x=0; x<json.cidades.length; x++ ){
 						option = document.createElement("option");
 						option.setAttribute("value", json.cidades[x].cdg);
-						option.appendChild( document.createTextNode( json.cidades[x].nm ));
-						document.getElementById( document.createTextNode( json.cidades[x].nm ) );
-						document.getElementById("cidade2").appendChild( option );
-						
+						option.appendChild( document.createTextNode( json.cidades[x].nm ));						
+						document.getElementById("cidade2").appendChild( option );						
 					}
 				}			
 			}
 		
 		}
 		
-		
+		//Limpa os dados do select
 		function limparDestino( destino ){
 			obj = document.getElementById( destino );
 			while( obj.firstChild )
@@ -68,6 +67,8 @@
 </head>
 <body>
 	<form name="selecioneCidade">
+		<h1>AJAX usando select</h1>
+		<h3>Retorno de dados usando a propriedade innerHTML</h3>
 		<label for="estado" accessKey="e"><u>E</u>stado:</label>
 		<select name="estado" id="estado" 
 					onChange="if(this.options[this.selectedIndex].value){selecionaCidade(this.options[this.selectedIndex].value)}">
@@ -79,10 +80,13 @@
 		<label for="cidade" accessKey="c"><u>C</u>idade:</label>
 		<select name="cidade" id="cidade"></select>
 
-		<hr />
+		<br />
+		<br />
 		
+		<h3>Retorno de dados usando JSON</h3>
 		<label for="estado" accessKey="e"><u>E</u>stado:</label>
-		<select name="estado" id="estado" onChange="">
+		<select name="estado" id="estado" 
+					onChange="if(this.options[this.selectedIndex].value){selecionaCidadeJson(this.options[this.selectedIndex].value)}">>
 			<option value="-">--------</option>
 			<option value="pr">PR</option>
 			<option value="sp">SP</option>
