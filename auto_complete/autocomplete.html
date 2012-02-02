@@ -9,13 +9,19 @@
 		
 		/** Efetua a requisição AJAX */
 		function sugerir( s ){
-			ajax = ajaxInit();
-			document.getElementById( "resultado" ).innerHTML = "Calculando...";
-			if( ajax ){
-				ajax.onreadystatechange = resultado;
-				url = 'autoCompletar.php?s='+s;
-				ajax.open('GET', url , true);
-				ajax.send( null );
+			if(s != ""){
+				ajax = ajaxInit();
+				document.getElementById( "resultado" ).innerHTML = "Calculando...";
+				
+				if( ajax ){
+					ajax.onreadystatechange = resultado;
+					url = 'autoCompletar.php?s='+s;
+					ajax.open('GET', url , true);
+					ajax.send( null );
+				}
+			}else{
+				limparDestino("resultado");
+				document.getElementById("resultado").style.visibility = "hidden";
 			}
 		}
 		
@@ -45,6 +51,7 @@
 			while( obj.firstChild )
 				obj.removeChild( obj.firstChild );
 		}
+		
 	</script>
 </head>
 <body>
