@@ -20,16 +20,12 @@
 	$res = "{'pal':[";
 	
 	for($x=0; $x<11; $x++){
-		
+	
 		$sub = substr($p[$x], 0, strlen($search));
-		
 		
 		if($search === $sub){
 			$res .= "'".$p[$x]."',";		
-		}
-		
-		
-		
+		}		
 	}
 	
 	$res = substr($res, 0, (strlen($res)-1));
