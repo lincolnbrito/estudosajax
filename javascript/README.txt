@@ -1,1 +1,0 @@
-Estudos em Javascript puro, usando PHP e MySQL
