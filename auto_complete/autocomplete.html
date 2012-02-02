@@ -33,12 +33,16 @@
 					var x = 0;
 					limparDestino("resultado");
 					document.getElementById("resultado").style.visibility = "visible";
-					for( x=0; x<json.pal.length; x++ ){
-						P = document.createElement("p");
-						P.appendChild( document.createTextNode(json.pal[x]) );
-						P.setAttribute("onClick", 
-							"document.getElementById('pal').value='"+json.pal[x]+"'; document.getElementById('resultado').style.visibility = 'hidden'");
-						document.getElementById("resultado").appendChild(P);
+					if(json.pal.length>0){
+						for( x=0; x<json.pal.length; x++ ){
+							P = document.createElement("p");
+							P.appendChild( document.createTextNode(json.pal[x]) );
+							P.setAttribute("onClick", 
+								"document.getElementById('pal').value='"+json.pal[x]+"'; document.getElementById('resultado').style.visibility = 'hidden'");
+							document.getElementById("resultado").appendChild(P);
+						}
+					}else{
+						document.getElementById("resultado").innerHTML = "Não há sugestões"
 					}
 				}
 			}
