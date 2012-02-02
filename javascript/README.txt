@@ -1,1 +1,1 @@
-Exemplos baseados em Javascript puro
+Estudos em Javascript puro, usando PHP e MySQL
