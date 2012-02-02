@@ -6,6 +6,7 @@
 	<script type="text/javascript" src="../ajaxInit.js"></script>
 	<script type="text/javascript">
 		
+		//Faz uma requisição AJAX informando o estado
 		function selecionaCidade(estado){
 			ajax = ajaxInit();
 			if( ajax ){
@@ -16,6 +17,7 @@
 			}
 		}
 		
+		//Escreve os dados retornados da requisição no elemento 
 		function escreveCidades(){
 			if( ajax.readyState == 4 ){
 				if( ajax.status == 200 ){
