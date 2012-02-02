@@ -1,6 +1,8 @@
 /**
 * Exemplo de uso com AJAX
-* Baseado //http://battisti.files.wordpress.com/2007/05/apresentacao.pdf
+* Baseado em:
+* http://battisti.files.wordpress.com/2007/05/apresentacao.pdf
+* http://www.unioeste.br/servicos/arqvirtual/arquivos/001-2007-DVCO.pdf
 */
 function ajaxInit(){
 	
